@@ -1,7 +1,6 @@
 import streamlit as st
 import tensorflow as tf
 from PIL import Image
-import io
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 st.set_page_config(page_title="MunchMatch", page_icon=":eyes:", layout="wide")
@@ -138,20 +137,10 @@ def load_model():
     return model
 
 
-def load_and_prep(image, img_shape=224):
-    # Convert the uploaded image to bytes
-    image_bytes = io.BytesIO(image.read())
-
-    # Open and convert the bytes to a PIL image
-    pil_image = Image.open(image_bytes)
-
-    # Convert the PIL image to a TensorFlow tensor
-    image = tf.image.convert_image_dtype(pil_image, tf.float32)
-    
-    # Resize the image
-    image = tf.image.resize(image, [img_shape, img_shape])
-    
-    return image
+def load_and_prep(filename, img_shape=224):
+    img = tf.cast(filename, tf.float32)
+    img = tf.image.resize(img, [img_shape, img_shape])
+    return img
 
 
 def predict(image, model):
@@ -174,7 +163,7 @@ col1, col2 = st.columns([2, 1])
 
 with col1:
     st.markdown(
-        ":wave: Hello and welcome to the **food_detection** web app. **MunchMatch** is a web app which categorises food images. It uses a model made using **Tensorflow** (Google's open source library)."
+        ":wave: Hello and welcome to the **MunchMatch** web app. **MunchMatch** is a web app which categorises food images. It uses a model made using **Tensorflow** (Google's open source library)."
     )
     st.markdown(
         """
