@@ -3,26 +3,8 @@ import tensorflow as tf
 from PIL import Image
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
-st.set_page_config(page_title="MunchMatch", page_icon=":eyes:", layout="wide")
-st.markdown(
-    """
-        <style>
-               .css-18e3th9 {
-                    padding-top: 2rem;
-                    padding-bottom: 10rem;
-                    padding-left: 5rem;
-                    padding-right: 5rem;
-                }
-               .css-1d391kg {
-                    padding-top: 0rem;
-                    padding-right: 1rem;
-                    padding-bottom: 3.5rem;
-                    padding-left: 1rem;
-                }
-        </style>
-        """,
-    unsafe_allow_html=True,
-)
+
+
 
 CLASS_NAMES = [
     "apple_pie",
@@ -155,10 +137,7 @@ def predict(image, model):
     st.success(f"It is a **{pred_class}** with {prob_class_str}% confidence")
 
 
-st.markdown(
-    "<h1 style='text-align: center;'>MunchMatch &#127828&#128064;</h1>",
-    unsafe_allow_html=True,
-)
+
 
 
 with col2:
