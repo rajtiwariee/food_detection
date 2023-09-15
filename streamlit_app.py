@@ -140,12 +140,7 @@ def predict(image, model):
 
 
 
-with col2:
-    st.markdown(
-        """
-    ### Predict on your image!
-    """
-    )
+
     if st.checkbox("Show labels"):
         st.write("There are 101 classes, so these are some 5 labels")
         import random
