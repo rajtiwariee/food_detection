@@ -133,7 +133,7 @@ CLASS_NAMES = [
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model(
-        "fine_tuned_model.h5"
+        "fine_tuned_model_with_model_ckpt_wo_mp.h5"
     )
     return model
 
