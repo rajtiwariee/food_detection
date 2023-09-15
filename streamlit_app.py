@@ -137,10 +137,16 @@ def load_model():
     return model
 
 
-def load_and_prep(filename, img_shape=224):
-    img = tf.cast(filename, tf.float32)
-    img = tf.image.resize(img, [img_shape, img_shape])
-    return img
+def load_and_prep(image, img_shape=224):
+    
+    image = Image.open(image)
+    image = tf.image.convert_image_dtype(image, tf.float32)
+    
+    # Resize the image
+    image = tf.image.resize(image, [img_shape, img_shape])
+    
+    
+    return image
 
 
 def predict(image, model):
