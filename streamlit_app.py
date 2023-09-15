@@ -1,6 +1,7 @@
 import streamlit as st
 import tensorflow as tf
 from PIL import Image
+import io
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 st.set_page_config(page_title="MunchMatch", page_icon=":eyes:", layout="wide")
@@ -138,9 +139,14 @@ def load_model():
 
 
 def load_and_prep(image, img_shape=224):
-    # Open and convert the PIL image to a NumPy array
-    image = Image.open(image)
-    image = tf.image.convert_image_dtype(image, tf.float32)
+    # Convert the uploaded image to bytes
+    image_bytes = io.BytesIO(image.read())
+
+    # Open and convert the bytes to a PIL image
+    pil_image = Image.open(image_bytes)
+
+    # Convert the PIL image to a TensorFlow tensor
+    image = tf.image.convert_image_dtype(pil_image, tf.float32)
     
     # Resize the image
     image = tf.image.resize(image, [img_shape, img_shape])
