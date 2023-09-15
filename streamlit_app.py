@@ -132,7 +132,7 @@ CLASS_NAMES = [
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model(
-        "models/fine_tuned_model_with_model_ckpt_wo_mp.h5"
+        "model.h5"
     )
     return model
 
@@ -159,34 +159,9 @@ st.markdown(
     "<h1 style='text-align: center;'>MunchMatch &#127828&#128064;</h1>",
     unsafe_allow_html=True,
 )
-col1, col2 = st.columns([2, 1])
 
-with col1:
-    st.markdown(
-        ":wave: Hello and welcome to the **MunchMatch** web app. **MunchMatch** is a web app which categorises food images. It uses a model made using **Tensorflow** (Google's open source library)."
-    )
-    st.markdown(
-        """
-### Introduction
-MunchMatch is an app which classifies the food item present in the image.  The main aim of building this model was to beat the [DeepFood](https://arxiv.org/abs/1606.05675)📄 paper. The app uses a **neural network** made using Tensorflow to classify these images into 101 categories of food items. I made this project while completing the [Zero to mastery Tensorflow course](https://zerotomastery.io/courses/learn-tensorflow/).
 
-### Data
-The model is trained on the **[Food101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)** dataset. This dataset was used in the various papers such as [DeepFood](https://arxiv.org/abs/1606.05675) and [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/). The data has 101 food categories and a total of 101,000 images. For each class, there are 250 test images and 750 train images. This is a lot of data. To optimize training I used the Food101 data available in *tensorflow-datasets* library. This made it really easy to use, as the data was already in tensors.
 
-### Model
-As said, the model is a neural network made using Tensorflow. The neural network uses *EfficientNetB0* as its backbone. The model has four layers, namely:
-* The Input layer: Confirms the inputs to the neural network is in the form of tensor with shape (224,224,3).
-* EfficientNetB0: Using the keras API and exploiting the transfer learning, the neural network uses a *EfficientNetB0*. This is a pretrained model on the classical ImageNet dataset. We fine-tune the weights and biases to make the predictions better. Learn more about the architecture of *EfficientNetB0* - [architecture](https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html)
-* GlobalAveragePooling2D layer: This layer takes the average of all the numbers in the previous layer and then condenses it into a (1,3) tensor. Layers such as GlobalAveragePooling2D layer, MaxPooling layers etc., usually come in handy in CNNs as there are a lot of numbers and the output layer may take much time to then predict classes.
-* Dense layer: This is used so that we have 1 neuron for each class.
-* Activation layer: This layer is used to finally classify the tensors in classes. We have used *softmax* activation function as this is a multi-class classification problem. The activation could've have been integrated with the *Dense* layer itself. We have used this type of structure to use the *mixed_precision* feature of tensorflow and keras.
-We then compile the model with *sparse_categorical_crossentropy* loss, *Adam* optimizer and use *accuracy* as a metric.
-""",
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        "[Github](https://github.com/ishandandekar/MunchMatch)  [Medium](https://medium.com/@ishandandekar/foodvision-3843f38be45e)"
-    )
 
 with col2:
     st.markdown(
